@@ -1,25 +1,24 @@
-import { getOrders } from "./database.js"
+import { getOrders } from "./database.js";
 
 const buildOrderListItem = (order) => {
-    return `<li>
+  return `<li>
         Order #${order.id} was placed on ${order.timestamp}
-    </li>`
-}
+    </li>`;
+};
 
 export const Orders = () => {
-    /*
-        Can you explain why the state variable has to be inside
-        the component function for Orders, but not the others?
-    */
-    const orders = getOrders()
+  /*
+    Can you explain why the state variable has to be inside
+    the component function for Orders, but not the others?
+  */
+  const orders = getOrders();
 
-    let html = "<ul>"
+  let html = "<ul>";
 
-    const listItems = orders.map(buildOrderListItem)
+  const listItems = orders.map(buildOrderListItem);
 
-    html += listItems.join("")
-    html += "</ul>"
+  html += listItems.join("");
+  html += "</ul>";
 
-    return html
-}
-
+  return html;
+};
