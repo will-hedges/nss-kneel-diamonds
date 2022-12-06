@@ -1,30 +1,36 @@
-import { getMetals, getSizes, getStyles, getOrders } from "./database.js";
+import {
+  getMetals,
+  getOrders,
+  getPieces,
+  getSizes,
+  getStyles,
+} from "./database.js";
 
 const metals = getMetals();
+const pieces = getPieces();
 const sizes = getSizes();
 const styles = getStyles();
 
 const buildOrderListItem = (order) => {
-  let totalCost = 0;
-
   // Remember that the function you pass to find() must return true/false
-  const foundMetal = metals.find((metal) => {
+  const metalPrice = metals.find((metal) => {
     return metal.id === order.metalId;
-  });
+  }).price;
 
-  totalCost += foundMetal.price;
-
-  const foundSize = sizes.find((size) => {
+  const sizePrice = sizes.find((size) => {
     return size.id === order.sizeId;
-  });
+  }).price;
 
-  totalCost += foundSize.price;
-
-  const foundStyle = styles.find((style) => {
+  const stylePrice = styles.find((style) => {
     return style.id === order.styleId;
-  });
+  }).price;
 
-  totalCost += foundStyle.price;
+  const priceMultiplier = pieces.find((piece) => {
+    return piece.id === order.pieceId;
+  }).priceMultiplier;
+
+  let totalCost = metalPrice + sizePrice + stylePrice;
+  totalCost *= priceMultiplier;
 
   const costString = totalCost.toLocaleString("en-US", {
     style: "currency",

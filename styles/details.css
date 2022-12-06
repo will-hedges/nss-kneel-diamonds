@@ -12,3 +12,7 @@
 .choices {
     display: flex;
 }
+
+.choices__pieces {
+    margin: 2rem 0 1rem 0;
+}
